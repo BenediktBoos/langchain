@@ -153,7 +153,11 @@ class DirectoryLoader(BaseLoader):
                 executor.map(lambda i: self.load_file(i, p, docs, pbar), items)
         else:
             for i in items:
-                self.load_file(i, p, docs, pbar)
+                try:
+                    self.load_file(i, p, docs, pbar)
+                except:
+                    print(f"\ncaught an exception while loading {i}")
+                    continue
 
         if pbar:
             pbar.close()
